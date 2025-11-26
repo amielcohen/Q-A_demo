@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createQuestionApi } from "../api/apiClient";
+import "./css/CreateQuestionPage.css"; 
 
 function CreateQuestionPage() {
   const [title, setTitle] = useState("");
@@ -27,48 +28,47 @@ function CreateQuestionPage() {
 
     await createQuestionApi({ title, body, tags });
 
-    // אחרי יצירה חוזרים לרשימת השאלות
     navigate("/");
   }
 
   return (
-    <div style={{ maxWidth: 800, margin: "40px auto" }}>
-      <h2>Create Question</h2>
+    <div className="create-question-page">
+      <h2 className="page-title">Create Question</h2>
 
-      <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: 10 }}>
-          <label>Title</label>
+      <form onSubmit={handleSubmit} className="create-question-form">
+        <div className="form-control">
+          <label className="form-label">Title</label>
           <input
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            style={{ width: "100%" }}
+            className="form-input"
           />
         </div>
 
-        <div style={{ marginBottom: 10 }}>
-          <label>Body</label>
+        <div className="form-control">
+          <label className="form-label">Body</label>
           <textarea
             value={body}
             onChange={(e) => setBody(e.target.value)}
-            style={{ width: "100%", height: 120 }}
+            className="form-textarea"
           />
         </div>
 
-        <div style={{ marginBottom: 10 }}>
-          <label>Tags (comma separated)</label>
+        <div className="form-control">
+          <label className="form-label">Tags (comma separated)</label>
           <input
             type="text"
             value={tagsInput}
             onChange={(e) => setTagsInput(e.target.value)}
             placeholder="react, hooks, jwt"
-            style={{ width: "100%" }}
+            className="form-input"
           />
         </div>
 
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <p className="error-text">{error}</p>}
 
-        <button type="submit" style={{ marginTop: 10, padding: 8 }}>
+        <button type="submit" className="primary-button">
           Create
         </button>
       </form>

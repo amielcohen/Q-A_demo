@@ -13,7 +13,6 @@ function App() {
     <Routes>
       <Route path="/login" element={<LoginPage />} />
 
-      {/* Protected routes */}
       <Route
         path="/"
         element={token ? <QuestionsListPage /> : <Navigate to="/login" />}
@@ -27,7 +26,7 @@ function App() {
         element={token ? <CreateQuestionPage /> : <Navigate to="/login" />}
       />
 
-      {/* Fallback */}
+      
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );

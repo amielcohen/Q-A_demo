@@ -1,4 +1,4 @@
-// server.js
+
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
@@ -25,20 +25,19 @@ function sha512(password) {
 }
 
 function authMiddleware(req, res, next) {
-  const authHeader = req.headers.authorization; // "Bearer <token>"
+  const authHeader = req.headers.authorization; 
   if (!authHeader) return res.status(401).json({ message: "No token" });
 
   const [, token] = authHeader.split(" ");
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded; // { userId, nickname, email }
+    req.user = decoded; 
     next();
   } catch (err) {
     return res.status(401).json({ message: "Invalid token" });
   }
 }
 
-// פעם אחת תיצור ידנית יוזר בבסיס הנתונים, או תוסיף route זמני לזה.
 
 // POST /login
 app.post("/login", async (req, res) => {
@@ -87,7 +86,6 @@ app.post("/login", async (req, res) => {
   });
 });
 
-// GET /userInfo
 app.get("/userInfo", authMiddleware, async (req, res) => {
   const user = await User.findById(req.user.userId);
   res.json({
@@ -97,7 +95,6 @@ app.get("/userInfo", authMiddleware, async (req, res) => {
   });
 });
 
-// POST /createQuestion
 app.post("/createQuestion", authMiddleware, async (req, res) => {
   const { title, body, tags } = req.body;
 
@@ -117,7 +114,6 @@ app.get("/getQuestions", authMiddleware, async (req, res) => {
   res.json(qs);
 });
 
-// GET /getQuestionAnswers?questionId=...
 app.get("/getQuestionAnswers", authMiddleware, async (req, res) => {
   const { questionId } = req.query;
 
@@ -129,7 +125,6 @@ app.get("/getQuestionAnswers", authMiddleware, async (req, res) => {
   res.json(answers);
 });
 
-// POST /answer
 app.post("/answer", authMiddleware, async (req, res) => {
   const { questionId, body } = req.body;
 

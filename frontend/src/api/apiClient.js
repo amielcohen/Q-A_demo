@@ -1,4 +1,4 @@
-// src/api/apiClient.js
+
 export const API_BASE = "http://localhost:4000";
 
 function getAuthHeaders() {
@@ -28,7 +28,7 @@ export async function getQuestionsApi() {
   return res.json();
 }
 
-// חדש: יצירת שאלה אמיתית
+
 export async function createQuestionApi({ title, body, tags }) {
   const res = await fetch(`${API_BASE}/createQuestion`, {
     method: "POST",
@@ -42,7 +42,7 @@ export async function createQuestionApi({ title, body, tags }) {
   return res.json();
 }
 
-// חדש: תשובות לשאלה
+
 export async function getQuestionAnswersApi(questionId) {
   const res = await fetch(
     `${API_BASE}/getQuestionAnswers?questionId=${questionId}`,
@@ -57,7 +57,7 @@ export async function getQuestionAnswersApi(questionId) {
   return res.json();
 }
 
-// חדש: שליחת תשובה
+
 export async function answerApi(questionId, body) {
   const res = await fetch(`${API_BASE}/answer`, {
     method: "POST",
@@ -71,7 +71,7 @@ export async function answerApi(questionId, body) {
   return res.json();
 }
 
-// אופציונלי – למצוא שאלה לפי id בצד הקליינט
+
 export async function getQuestionByIdApi(id) {
   const all = await getQuestionsApi();
   return all.find((q) => q._id === id);

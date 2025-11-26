@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getQuestionsApi } from "../api/apiClient";
 import QuestionCard from "../components/QuestionCard";
+import "./css/QuestionsListPage.css";
 
 function QuestionsListPage() {
   const [questions, setQuestions] = useState([]);
@@ -20,16 +21,12 @@ function QuestionsListPage() {
   }
 
   return (
-    <div style={{ maxWidth: 800, margin: "40px auto" }}>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginBottom: 20,
-        }}
-      >
-        <h2>Questions</h2>
-        <button onClick={handleAskQuestion}>Ask Question</button>
+    <div className="questions-page">
+      <div className="questions-header">
+        <h2 className="questions-title">Questions</h2>
+        <button onClick={handleAskQuestion} className="ask-button">
+          Ask Question
+        </button>
       </div>
 
       {questions.map((q) => (

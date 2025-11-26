@@ -6,9 +6,10 @@ import {
   answerApi,
 } from "../api/apiClient";
 import AnswerCard from "../components/AnswerCard";
+import "./css/QuestionDetailsPage.css"; 
 
 function QuestionDetailsPage() {
-  const { id } = useParams(); // ה-id שמגיע מה-URL
+  const { id } = useParams();
   const [question, setQuestion] = useState(null);
   const [answers, setAnswers] = useState([]);
   const [newAnswer, setNewAnswer] = useState("");
@@ -26,6 +27,8 @@ function QuestionDetailsPage() {
   async function handleAddAnswer(e) {
     e.preventDefault();
 
+    if (!newAnswer.trim()) return;
+
     const added = await answerApi(id, newAnswer);
     setAnswers((prev) => [...prev, added]);
     setNewAnswer("");
@@ -33,43 +36,41 @@ function QuestionDetailsPage() {
 
   if (!question) return <p>Loading...</p>;
 
-  return (
-    <div style={{ maxWidth: 800, margin: "40px auto" }}>
-      <h2>{question.title}</h2>
-      <p>{question.body}</p>
+  const tags = question.tags || [];
 
-      <div style={{ marginTop: 10 }}>
-        {question.tags.map((tag) => (
-          <span
-            key={tag}
-            style={{
-              background: "#eee",
-              padding: "2px 8px",
-              marginRight: 6,
-              borderRadius: 4,
-              fontSize: 12,
-            }}
-          >
+  return (
+    <div className="question-details-page">
+      <h2 className="question-title">{question.title}</h2>
+      <p className="question-body">{question.body}</p>
+
+      <div className="question-tags">
+        {tags.map((tag) => (
+          <span key={tag} className="tag-pill">
             {tag}
           </span>
         ))}
       </div>
 
-      <hr style={{ margin: "20px 0" }} />
+      <hr className="section-divider" />
 
-      <h3>Answers</h3>
-      {answers.map((ans) => (
-        <AnswerCard key={ans.id} answer={ans} />
-      ))}
+      <section className="answers-section">
+        <h3 className="section-title">Answers</h3>
+        {answers.length === 0 && (
+          <p className="no-answers-text">No answers yet. Be the first!</p>
+        )}
+        {answers.map((ans) => (
+          <AnswerCard key={ans._id} answer={ans} />
+        ))}
+      </section>
 
-      <form onSubmit={handleAddAnswer} style={{ marginTop: 20 }}>
+      <form onSubmit={handleAddAnswer} className="answer-form">
         <textarea
           value={newAnswer}
           onChange={(e) => setNewAnswer(e.target.value)}
           placeholder="Write your answer..."
-          style={{ width: "100%", height: 80 }}
+          className="answer-textarea"
         />
-        <button type="submit" style={{ marginTop: 10, padding: 8 }}>
+        <button type="submit" className="answer-button">
           Add Answer
         </button>
       </form>

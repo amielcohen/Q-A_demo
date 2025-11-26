@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createQuestionMock } from "../api/apiMock";
+import { createQuestionApi } from "../api/apiClient";
 
 function CreateQuestionPage() {
   const [title, setTitle] = useState("");
@@ -25,7 +25,7 @@ function CreateQuestionPage() {
         .map((t) => t.trim())
         .filter((t) => t.length > 0) || [];
 
-    await createQuestionMock({ title, body, tags });
+    await createQuestionApi({ title, body, tags });
 
     // אחרי יצירה חוזרים לרשימת השאלות
     navigate("/");

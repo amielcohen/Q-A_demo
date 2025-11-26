@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
-  getQuestionByIdMock,
-  getAnswersMock,
-  addAnswerMock,
-} from "../api/apiMock";
+  getQuestionByIdApi,
+  getQuestionAnswersApi,
+  answerApi,
+} from "../api/apiClient";
 import AnswerCard from "../components/AnswerCard";
 
 function QuestionDetailsPage() {
@@ -15,8 +15,8 @@ function QuestionDetailsPage() {
 
   useEffect(() => {
     async function load() {
-      const q = await getQuestionByIdMock(id);
-      const a = await getAnswersMock(id);
+      const q = await getQuestionByIdApi(id);
+      const a = await getQuestionAnswersApi(id);
       setQuestion(q);
       setAnswers(a);
     }
@@ -26,7 +26,7 @@ function QuestionDetailsPage() {
   async function handleAddAnswer(e) {
     e.preventDefault();
 
-    const added = await addAnswerMock(id, newAnswer);
+    const added = await answerApi(id, newAnswer);
     setAnswers((prev) => [...prev, added]);
     setNewAnswer("");
   }

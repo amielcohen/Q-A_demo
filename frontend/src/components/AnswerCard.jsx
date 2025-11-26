@@ -9,9 +9,9 @@ function AnswerCard({ answer }) {
       }}
     >
       <p>{answer.body}</p>
-      <small style={{ color: "#555" }}>
-        By {answer.user.nickname}
-      </small>
+     <small style={{ color: "#555" }}>
+        By {answer.userId?.nickname || "Unknown user"}
+     </small>
     </div>
   );
 }

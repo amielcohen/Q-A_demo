@@ -120,7 +120,12 @@ app.get("/getQuestions", authMiddleware, async (req, res) => {
 // GET /getQuestionAnswers?questionId=...
 app.get("/getQuestionAnswers", authMiddleware, async (req, res) => {
   const { questionId } = req.query;
-  const answers = await Answer.find({ questionId });
+
+  const answers = await Answer.find({ questionId }).populate(
+    "userId",
+    "nickname"
+  );
+
   res.json(answers);
 });
 
@@ -134,7 +139,9 @@ app.post("/answer", authMiddleware, async (req, res) => {
     userId: req.user.userId,
   });
 
-  res.status(201).json(a);
+  const populated = await a.populate("userId", "nickname");
+
+  res.status(201).json(populated);
 });
 
 const port = process.env.PORT || 4000;

@@ -31,7 +31,7 @@ function QuestionCard({ question }) {
       </div>
 
       <Link
-        to={`/questions/${question.id}`}
+        to={`/questions/${question._id}`}
         style={{ display: "inline-block", marginTop: 10, fontSize: 14 }}
       >
         View Question →

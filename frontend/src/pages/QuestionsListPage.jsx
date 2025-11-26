@@ -33,7 +33,7 @@ function QuestionsListPage() {
       </div>
 
       {questions.map((q) => (
-        <QuestionCard key={q.id} question={q} />
+        <QuestionCard key={q._id} question={q} />
       ))}
     </div>
   );
